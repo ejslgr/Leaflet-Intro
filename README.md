@@ -1,6 +1,6 @@
 # Introduction to web mapping with Leaflet
 
-This is a tutorial written by [Emma Slager](http://faculty.washington.edu/ejslager/) for the Washington Women in GIS & Technology group in September 2020. It builds on an excellent [Maptime Boston tutorial](https://maptimeboston.github.io/leaflet-intro/), but is tailored a bit to our local context (#earthquakes!) and assumes an audience that knows a lot about mapping but might be new to web development.
+This is a tutorial written by [Emma Slager](http://faculty.washington.edu/ejslager/) for the Washington Women in GIS & Technology group in September 2020, and updated since. It builds on an excellent [Maptime Boston tutorial](https://maptimeboston.github.io/leaflet-intro/), but is tailored a bit to our local context (#earthquakes!) and assumes an audience that knows a lot about mapping but might be new to web development.
 
 ## Why Leaflet? 
 
@@ -8,7 +8,7 @@ This is a tutorial written by [Emma Slager](http://faculty.washington.edu/ejslag
 
 Leaflet is a JavaScript library. JavaScript is a programming language used extensively in modern web development, usually in combination with HTML and CSS. HTML (or Hyper Text Markup Language) provides the meaning and structure of the web page, CSS (Cascading Style Sheets) provides the styling, and JavaScript provides the functionality. 
 
-We'll be working a little bit with all three of these. Writing and editing HTML, CSS, and JS files requires a text editor. I recommend [Atom.io](https://atom.io/). It's free and available on Windows, Mac, and Linux operating systems. 
+We'll be working a little bit with all three of these. Writing and editing HTML, CSS, and JS files requires a text editor. I like [Visual Studio Code](https://code.visualstudio.com/download). It's free and available on Windows, Mac, and Linux operating systems. 
 
 ## A basic Leaflet map
 
@@ -29,40 +29,40 @@ View the code below with comments explaining what each part does:
 <html>
 <head>
 	<title>Intro to Leaflet</title>
- 	<!-- the Leaflet CSS -->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+    <!-- the Leaflet CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 	<!-- the Leaflet JavaScript library -->
-	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
-  	<!-- code where we create and name the container that holds the map -->
+  <!-- code where we create and name the container that holds the map -->
 	<div id="map" style="height: 95%"></div>
-  	<!-- code where we build the map and its functionality -->
+  <!-- code where we build the map and its functionality -->
 	<script>
-		var mymap = L.map('map').setView([47.258, -122.465], 12);
-		var basemap = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.png', {
-			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-		}).addTo(mymap);
-		var point = L.marker([47.258, -122.465]).addTo(mymap);
-			point.bindPopup("<b>Hello world!</b><br>I am a popup.");
-  	</script>
+			var mymap = L.map('map').setView([47.258, -122.465], 12);
+			var basemap = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+			}).addTo(mymap);
+			var point = L.marker([47.258, -122.465]).addTo(mymap);
+				point.bindPopup("<b>Hello world!</b><br>I am a popup.");
+  </script>
 </body>
 </html>
 ```
-Let's take a closer look at the JavaScript code that creates the map. Inside the <script> tags, we have code that: 
+Let's take a closer look at the JavaScript code that creates the map. Inside the `<script>` tags, we have code that: 
 
 1. Creates the map variable (named "```mymap```") 
 2. Uses ```L.map()``` to initialize the map object, passing it the id of the div where we want the map to go
 3. Uses the ```setView()``` method to center the map on Tacoma (latitude 47.258 and longitude -122.465) and set the zoom level to 12
-4. Uses ```L.tileLayer()``` to create the base layer of map tiles, specifying a URL template for the tile images. In this case, we're using tiles map designed by a company called Stamen, but we could use tiles from [many different sources](http://leaflet-extras.github.io/leaflet-providers/preview/), including Open Street Map, ESRI, or Carto. {z}/{x}/{y} is a template that Leaflet uses to find tiles at the correct zoom, x, and y coordinates. The code inside the ```attribution``` option sets the attribution text that appears in the bottom right corner of the map. 
+4. Uses ```L.tileLayer()``` to create the base layer of map tiles, specifying a URL template for the tile images. In this case, we're using tiles map from Open Street Map, but we could use tiles from [many different sources](http://leaflet-extras.github.io/leaflet-providers/preview/), including ESRI, Mapbox, or Carto. {z}/{x}/{y} is a template that Leaflet uses to find tiles at the correct zoom, x, and y coordinates. The code inside the ```attribution``` option sets the attribution text that appears in the bottom right corner of the map. 
 5. Uses the ```addTo()``` method to add the base tile layer to the map
 6. Uses ```L.marker()```to create a point marker at lat/long 42.258, -122.465 and ```addTo()``` to add the point marker to the map
 7. Uses ```.bindPopup``` to create a popup that appears when the point marker is clicked. We use HTML ```("<b>Hello world!</b><br>I am a popup.")``` to provide the content of the popup. 
 
 ## Try it yourself
 
-For the remainder of the tutorial, I suggest that you copy the code from this <a href="https://github.com/ejslgr/Leaflet-Intro/blob/master/code-samples/earthquakes-starter.html" download>starterfile </a>, paste it into a new HTML document in Atom, and follow along to make the changes yourself. 
+For the remainder of the tutorial, I suggest that you copy the code from this <a href="https://github.com/ejslgr/Leaflet-Intro/blob/master/code-samples/earthquakes-starter.html" download>starter file </a>, paste it into a new HTML document in VS Code, and follow along to make the changes yourself. 
 
 You'll note that the starter file is very similar to the basic Leaflet map we looked at above, except that we've removed the marker and changed the center and zoom level. Next, we'll add some data.
 
@@ -113,11 +113,21 @@ If you want to know more about GeoJSON, a good place to start is its [Wikipedia 
 
 ## Adding GeoJSON data to our Leaflet map
 
-To our map, we're going to add a live GeoJSON feed of all the earthquakes that occurred in the past day. USGS maintains numerous earthquake feeds, and you can see a summary of the information it makes available about these quakes here: [https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)
+To our map, we're going to add two different data layers using two different methods:
 
-The feed we want is all earthquakes of every magnitude that occurred in the last 24 hours: [https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson). If you click on this link, you'll recognize that what you're looking at is a GeoJSON file: a collection of features that have a specified geometry and numerous properties or non-spatial attributes.
+1. a live GeoJSON feed of all the earthquakes (as point data) that occurred in the past day. USGS maintains numerous earthquake feeds, and you can see a summary of the information it makes available about these quakes here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php.
 
-Here's the code we use to add the earthquake GeoJSON to our map. If you're following along in Atom, add the lines of code as indicated, then view your changes in a web browser. 
+2. a static GeoJSON of global active faults (as line data). This data set is maintained by the Global Earthquake Model Foundation, and you can find it here: https://github.com/cossatot/gem-global-active-faults
+
+### Adding live data with JQuery
+
+First, let's add the earthquake data. The earthquake data is a live feed, updated every minute, and thus we cannot download the data or we would lose its real-time usefulness. Instead, we will include it in our map by pointing to the URL of the feed. To add data in this way, we'll use something called jQuery to load the data from the feed into the map.
+
+USGS publishes numerous earthquake feeds, and you can see a summary of the information it makes available about these quakes here: [https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)
+
+The feed we will choose for this map is all earthquakes of every magnitude that occurred in the last 24 hours: [https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson). If you click on this link, you'll find that you're looking at a GeoJSON file: a collection of features that have a specified geometry and numerous properties or non-spatial attributes.
+
+Here's the code we use to add the earthquake GeoJSON to our map. If you're following along in VS Code, add the lines of code as indicated, then view your changes in a web browser. 
 
 In the ```head``` of the HTML file, after the line of code where you add the leaflet.js script, insert the following: 
 
