@@ -1,6 +1,6 @@
 # Introduction to web mapping with Leaflet
 
-This is a tutorial written by [Emma Slager](http://faculty.washington.edu/ejslager/) for the Washington Women in GIS & Technology group in September 2020, and updated since. It builds on an excellent [Maptime Boston tutorial](https://maptimeboston.github.io/leaflet-intro/), but is tailored a bit to our local context (#earthquakes!) and assumes an audience that knows a lot about mapping but might be new to web development.
+This is a tutorial written by EJ Slager for the Washington Women in GIS & Technology group in September 2020, and updated since. It builds on an excellent [Maptime Boston tutorial](https://maptimeboston.github.io/leaflet-intro/), but is tailored a bit to our local context (#earthquakes!) and assumes an audience that knows a lot about mapping but might be new to web development.
 
 ## Why Leaflet? 
 
@@ -113,15 +113,7 @@ If you want to know more about GeoJSON, a good place to start is its [Wikipedia 
 
 ## Adding GeoJSON data to our Leaflet map
 
-To our map, we're going to add two different data layers using two different methods:
-
-1. a live GeoJSON feed of all the earthquakes (as point data) that occurred in the past day. USGS maintains numerous earthquake feeds, and you can see a summary of the information it makes available about these quakes here: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php.
-
-2. a static GeoJSON of global active faults (as line data). This data set is maintained by the Global Earthquake Model Foundation, and you can find it here: https://github.com/cossatot/gem-global-active-faults
-
-### Adding live data with JQuery
-
-First, let's add the earthquake data. The earthquake data is a live feed, updated every minute, and thus we cannot download the data or we would lose its real-time usefulness. Instead, we will include it in our map by pointing to the URL of the feed. To add data in this way, we'll use something called jQuery to load the data from the feed into the map.
+To our map, we're going to add earthquake data from USGS. The earthquake data is a live feed, updated every minute, and thus we cannot download the data or we would lose its real-time usefulness. Instead, we will include it in our map by pointing to the URL of the feed. To add data in this way, we'll use something called jQuery to load the data from the feed into the map.
 
 USGS publishes numerous earthquake feeds, and you can see a summary of the information it makes available about these quakes here: [https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)
 
